@@ -47,6 +47,33 @@ begin
   Close(Archivo);
 end;
 
+procedure MostrarReportes;
+var
+  Archivo: Text;
+  Linea: string;
+begin
+  Assign(Archivo, 'reportes.txt');
+  {$I-}
+  reset(Archivo);
+  {$I+}
+   clrscr;
+  if IOResult <> 0 then
+  begin
+    writeln('No se ha creado ningun archivo');
+    Exit;
+  end;
+  
+  writeln('Reportes guardados:');
+  while not EOF(Archivo) do
+  begin
+    Readln(Archivo, Linea);
+    writeln(Linea);
+  end;
+  Close(Archivo);
+end;
+
+
+
 
 
 
@@ -73,7 +100,7 @@ begin
     end;
     case opcion of
       1: begin CrearReporte;  readkey; end;
-      2: begin  end;
+      2: begin MostrarReportes; readkey; end;
       3: writeln('Saliendo del programa...');  
     end;
   until opcion = 3;
