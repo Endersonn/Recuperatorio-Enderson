@@ -3,10 +3,40 @@ uses crt;
 var
 opcion:integer;
 
+Procedure  Conversion_Binario;
+var
+  Frase_A_Convertir:string;
+  Binario:string;
+  Letra:char;
+  i, j,CODIGOASCCI:integer;
+  
+begin 
+clrscr;
+writeln('INGRESA TU FRASE PARA CONVERTIRLA A BINARIO ');
+write('---> '); readln(Frase_A_Convertir);
+
+  for i := 1 to length(Frase_A_Convertir) do 
+  begin
+    Letra := Frase_A_Convertir[i];
+    CODIGOASCCI := ord(Letra);
+    binario := '';
+    while CODIGOASCCI > 0 do 
+    begin
+    if (CODIGOASCCI mod 2) = 0 then
+    Binario := '0' + Binario
+    else
+    binario := '1' + Binario;
+    CODIGOASCCI := CODIGOASCCI div 2;
+    end;
+    for j := 1 to (8 - length(Binario)) do
+      write('0');
+    write(Binario, ' '); 
+end;
+end; 
+
 begin
 repeat
   writeln('|------------------------------------|');
-  Writeln('|                                    |');
   writeln('|       CONVERSION DE FRASES         |');     
   writeln('|------------------------------------|');
   Writeln('|              OPCIONES              |');
@@ -34,6 +64,7 @@ repeat
 
   case opcion of
     1: begin 
+    Conversion_Binario;
     end;
 
     2: begin 
