@@ -33,7 +33,39 @@ write('---> '); readln(Frase_A_Convertir);
       write('0');
     write(Binario, ' '); 
 end;
-end; 
+end;
+
+procedure Conversion_Hexadecimal;
+var
+  Frase_A_Convertir:string;
+  Hexadecimal:string;
+  letra:char;
+  i,j:integer;
+  CODIGOASCCI:integer;
+ 
+begin 
+clrscr;
+writeln('INGRESA TU FRASE PARA CONVERTIRLA A HEXADECIMAL ');
+write('---> '); readln(Frase_A_Convertir);
+
+  for i := 1 to length(Frase_A_Convertir) do 
+    begin
+    letra := Frase_A_Convertir[i];
+    CODIGOASCCI := ord(letra);
+    Hexadecimal := '';
+    while CODIGOASCCI > 0 do begin
+    if (CODIGOASCCI mod 16) < 10 then
+    Hexadecimal := chr((CODIGOASCCI mod 16) + 48) + Hexadecimal
+    else
+    Hexadecimal := chr((CODIGOASCCI mod 16) + 55) + Hexadecimal;
+    CODIGOASCCI := CODIGOASCCI div 16;
+    end;
+    for j := 1 to (2 - length(Hexadecimal)) do
+    write('0');
+    write(Hexadecimal, ' ');
+end;
+end;
+
 
 begin
 repeat
@@ -70,6 +102,7 @@ clrscr;
     end;
 
     2: begin 
+    Conversion_Hexadecimal
 
     end;
 
