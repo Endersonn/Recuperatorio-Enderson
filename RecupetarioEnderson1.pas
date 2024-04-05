@@ -138,6 +138,34 @@ begin
   close(Archivo);
 end;
 
+Procedure Mostrar_Frases_Romanas;
+var
+  Archivo: text;
+  Linea: string;
+begin
+  assign(Archivo, 'frases_romanas.txt');
+  {$I-}
+  reset(Archivo);
+  {$I+}
+  clrscr;
+  if IOResult <> 0 then
+  begin
+    writeln('No se ha creado ningun archivo ni ninguna frase');
+    Exit;
+  end;
+  
+  writeln('Frases romanas:');
+  while not eof(Archivo) do
+  begin
+    readln(Archivo, Linea);
+    writeln(Linea);
+  end;
+  
+  close(Archivo);
+end;
+
+
+
 
 
 
@@ -414,7 +442,7 @@ clrscr;
     end; 
     
     8: begin 
-     
+     Mostrar_Frases_Romanas;
     end;
     
     
