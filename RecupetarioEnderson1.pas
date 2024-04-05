@@ -30,7 +30,7 @@ begin
     append(Archivo);
 
   // Guardamos la frase original en el archivo
-  writeln(Archivo,' ');
+  
   writeln(Archivo,'Frase: ', Frase_A_Convertir);
 
 
@@ -50,8 +50,9 @@ begin
     for j := 1 to (8 - length(Binario)) do
       write('0');
     write(Binario, ' '); 
-    write(Archivo,' ', Binario); 
+    write(Archivo,Binario,' '); 
 	end;
+	writeln(Archivo);
   close(Archivo);
 end;
 
@@ -90,7 +91,7 @@ begin
     begin
     letra := Frase_A_Convertir[i];
     CODIGOASCCI := ord(letra);
-    hexadecimal := '';
+    Hexadecimal := '';
     
     while CODIGOASCCI > 0 do begin
     if (CODIGOASCCI mod 16) < 10 then
@@ -107,40 +108,72 @@ begin
     write(Hexadecimal, ' ');
 
   // Guardamos la frase en hexadecimal en el archivo
-  write(Archivo,' ', Hexadecimal); 
+  write(Archivo, Hexadecimal,' '); 
 end;
+writeln(Archivo);
   close(Archivo);
 end;
 
 
-procedure Conversion_Octal;
+Procedure Conversion_Octal_Y_Guardar;
 var
-Frase_A_Convertir:string;
-Octal:string;
-letra:char;
-i,j:integer;
-CODIGOASCCI:integer;
+  Frase_A_Convertir, Octal: string;
+  Letra: char;
+  i, j, CODIGOASCCI: integer;
+  Archivo: text;
 
 begin 
-clrscr;
-writeln('INGRESA TU FRASE PARA CONVERTIRLA A OCTAL ');
-write('---> '); readln(Frase_A_Convertir);
+  clrscr;
+  writeln('INGRESA TU FRASE PARA CONVERTIRLA A OCTAL ');
+  write('---> '); readln(Frase_A_Convertir);
 
+  assign(Archivo, 'frases_octales.txt');
+  
+  // Verificamos si el archivo existe, si no existe lo creamos
+  {$I-}
+  reset(Archivo);
+  {$I+}
+  
+  if IOResult <> 0 then
+    rewrite(Archivo)
+  else
+    append(Archivo);
+
+  // Guardamos la frase original en el archivo
+  writeln(Archivo, 'Frase: ', Frase_A_Convertir);
+
+  // Convertimos la frase a octal y la guardamos en el archivo
   for i := 1 to length(Frase_A_Convertir) do 
-    begin
+  begin
     letra := Frase_A_Convertir[i];
     CODIGOASCCI := ord(letra);
     Octal := '';
+    
     while CODIGOASCCI > 0 do 
     begin
-    Octal := chr((CODIGOASCCI mod 8) + 48) + Octal;
-    CODIGOASCCI := CODIGOASCCI div 8;
-    end; 
+      Octal := chr((CODIGOASCCI mod 8) + 48) + Octal;
+      CODIGOASCCI := CODIGOASCCI div 8;
+    end;
+    
+
     for j := 1 to (3 - length(Octal)) do
-    write('0');
-    write(Octal, ' ');
+      write('0');
+      write(Octal, ' ');
+      
+    
+    write(Archivo, Octal, ' '); 
+  end;
+  
+  
+  writeln(Archivo); 
+  
+
+  close(Archivo);
 end;
-end; 
+
+
+
+
 
 procedure Conversion_Romano; 
 var
@@ -250,7 +283,7 @@ clrscr;
     end;
 
     3: begin 
-    Conversion_Octal;
+    Conversion_Octal_Y_Guardar;
     end;
 
     4: begin
