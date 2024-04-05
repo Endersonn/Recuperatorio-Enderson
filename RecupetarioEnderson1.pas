@@ -4,36 +4,50 @@ var
 opcion:integer;
 opcion2: string;
 
-Procedure  Conversion_Binario;
-var
-  Frase_A_Convertir:string;
-  Binario:string;
-  Letra:char;
-  i, j,CODIGOASCCI:integer;
-  
-begin 
-clrscr;
-writeln('INGRESA TU FRASE PARA CONVERTIRLA A BINARIO ');
-write('---> '); readln(Frase_A_Convertir);
 
-  for i := 1 to length(Frase_A_Convertir) do 
+Procedure Conversion_Binario_Y_Guardar;
+var
+  Frase_A_Convertir, Binario: string;
+  Letra: char;
+  i,j,CODIGOASCCI: integer;
+  Archivo: text;
+
+begin 
+  clrscr;
+  writeln('INGRESA TU FRASE PARA CONVERTIRLA A BINARIO ');
+  write('---> '); readln(Frase_A_Convertir);
+
+  assign(Archivo, 'frases_binarias.txt');
+  append(Archivo); 
+
+  // Guardamos la frase original en el archivo
+  writeln(Archivo,' ');
+  writeln(Archivo,'Frase: ', Frase_A_Convertir);
+
+
+   for i := 1 to length(Frase_A_Convertir) do 
   begin
     Letra := Frase_A_Convertir[i];
     CODIGOASCCI := ord(Letra);
-    binario := '';
+    Binario := '';
     while CODIGOASCCI > 0 do 
     begin
-    if (CODIGOASCCI mod 2) = 0 then
-    Binario := '0' + Binario
-    else
-    binario := '1' + Binario;
-    CODIGOASCCI := CODIGOASCCI div 2;
+      if (CODIGOASCCI mod 2) = 0 then
+        Binario := '0' + Binario
+      else
+        Binario := '1' + Binario;
+      CODIGOASCCI := CODIGOASCCI div 2;
     end;
     for j := 1 to (8 - length(Binario)) do
-    write('0');
+      write('0');
     write(Binario, ' '); 
+    write(Archivo,' ', Binario); 
+	end;
+  close(Archivo);
 end;
-end;
+
+
+
 
 procedure Conversion_Hexadecimal;
 var
@@ -195,7 +209,7 @@ clrscr;
 
   case opcion of
     1: begin 
-    Conversion_Binario;
+    Conversion_Binario_Y_Guardar;
     end;
 
     2: begin 
