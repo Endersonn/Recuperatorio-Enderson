@@ -85,6 +85,33 @@ begin
   close(Archivo);
 end;
 
+Procedure Mostrar_Frases_Hexadecimales;
+var
+  Archivo: text;
+  Linea: string;
+begin
+  assign(Archivo, 'frases_hexadecimales.txt');
+  {$I-}
+  reset(Archivo);
+  {$I+}
+  clrscr;
+  if IOResult <> 0 then
+  begin
+    writeln('No se ha creado ningun archivo ni ninguna frase');
+    Exit;
+  end;
+  
+  writeln('Frases hexadecimales:');
+  while not eof(Archivo) do
+  begin
+    readln(Archivo, Linea);
+    writeln(Linea);
+  end;
+  
+  
+  close(Archivo);
+end;
+
 
 
 
@@ -350,6 +377,7 @@ clrscr;
   
 
     6: begin 
+     Mostrar_Frases_Hexadecimales;
      
     end; 
     
@@ -366,7 +394,7 @@ clrscr;
   end; 
   
 	writeln;
-	Writeln('Quieres volver al menu o deseas salir? (Si/No)'); 
+	Writeln('Ingresa "si" para volver a el menu o "no" para salir del programa (Si/No)'); 
 	write('---> '); Readln(opcion2);
 	until (opcion2 = 'No') or (opcion2 = 'NO') or (opcion2 = 'no');	  
 	
