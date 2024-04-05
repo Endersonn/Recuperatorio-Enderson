@@ -175,21 +175,36 @@ end;
 
 
 
-procedure Conversion_Romano; 
+procedure Conversion_Romano_Y_Guardar; 
 var
-Frase_A_Convertir:string;
-Romano:string;
-letra: char;
-i: integer;
-CODIGOASCCI:integer;
+  Frase_A_Convertir, Romano: string;
+  Letra: char;
+  i: integer;
+  CODIGOASCCI: integer;
+  Archivo: text;
+begin 
+  clrscr;
+  writeln('INGRESA TU FRASE PARA CONVERTIRLA A ROMANO ');
+  write('---> '); readln(Frase_A_Convertir);
   
+  assign(Archivo, 'frases_romanas.txt');
+  
+  // Verificar si el archivo existe, si no, crearlo
+  {$I-}
+  reset(Archivo);
+  {$I+}
+  
+  if IOResult <> 0 then
+    rewrite(Archivo)
+  else
+    append(Archivo);
 
-begin { Inicio del procedure romano}
-clrscr;
-writeln('INGRESA TU FRASE PARA CONVERTIRLA A ROMANO ');
-write('---> '); readln(Frase_A_Convertir);
+  
+  writeln(Archivo, 'Frase: ', Frase_A_Convertir);
 
-  for i := 1 to length(Frase_A_Convertir) do begin
+ 
+  for i := 1 to length(Frase_A_Convertir) do 
+  begin
     letra := Frase_A_Convertir[i];
     CODIGOASCCI := ord(letra);
     Romano := '';
@@ -241,8 +256,16 @@ write('---> '); readln(Frase_A_Convertir);
       CODIGOASCCI := CODIGOASCCI - 1;
     end;
     write(Romano, ' ');
+    write(Archivo,Romano,' ');
+  end; 
+	writeln(Archivo); 
+  
+
+  // Cerrar el archivo
+  close(Archivo);
+
 end;
-end; 
+
 
 
 
@@ -287,7 +310,7 @@ clrscr;
     end;
 
     4: begin
-    Conversion_Romano; 
+    Conversion_Romano_Y_Guardar; 
     end;
 
     5: begin 
