@@ -30,7 +30,7 @@ write('---> '); readln(Frase_A_Convertir);
     CODIGOASCCI := CODIGOASCCI div 2;
     end;
     for j := 1 to (8 - length(Binario)) do
-      write('0');
+    write('0');
     write(Binario, ' '); 
 end;
 end;
@@ -66,6 +66,35 @@ write('---> '); readln(Frase_A_Convertir);
 end;
 end;
 
+procedure Conversion_Octal;
+var
+Frase_A_Convertir:string;
+Octal:string;
+letra:char;
+i,j:integer;
+CODIGOASCCI:integer;
+
+begin 
+clrscr;
+writeln('INGRESA TU FRASE PARA CONVERTIRLA A OCTAL ');
+write('---> '); readln(Frase_A_Convertir);
+
+  for i := 1 to length(Frase_A_Convertir) do 
+    begin
+    letra := Frase_A_Convertir[i];
+    CODIGOASCCI := ord(letra);
+    Octal := '';
+    while CODIGOASCCI > 0 do 
+    begin
+    Octal := chr((CODIGOASCCI mod 8) + 48) + Octal;
+    CODIGOASCCI := CODIGOASCCI div 8;
+    end; 
+    for j := 1 to (3 - length(Octal)) do
+    write('0');
+    write(Octal, ' ');
+end;
+end; 
+
 
 begin
 repeat
@@ -89,7 +118,6 @@ clrscr;
   writeln('|------------------------------------|');
     write('|---> ');readln(opcion);
   
-
   While (opcion <> 1) and (opcion <> 2) and (opcion <> 3) and (opcion <> 4) 
   and (opcion <> 5) and (opcion <> 6) and (opcion <> 7) and (opcion <> 8) do 
   begin
@@ -103,11 +131,10 @@ clrscr;
 
     2: begin 
     Conversion_Hexadecimal
-
     end;
 
     3: begin 
-
+    Conversion_Octal;
     end;
 
     4: begin 
