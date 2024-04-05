@@ -95,6 +95,77 @@ write('---> '); readln(Frase_A_Convertir);
 end;
 end; 
 
+procedure Conversion_Romano; 
+var
+Frase_A_Convertir:string;
+Romano:string;
+letra: char;
+i: integer;
+CODIGOASCCI:integer;
+  
+
+begin { Inicio del procedure romano}
+clrscr;
+writeln('INGRESA TU FRASE PARA CONVERTIRLA A ROMANO ');
+write('---> '); readln(Frase_A_Convertir);
+
+  for i := 1 to length(Frase_A_Convertir) do begin
+    letra := Frase_A_Convertir[i];
+    CODIGOASCCI := ord(letra);
+    Romano := '';
+    
+    while CODIGOASCCI >= 1000 do begin
+      Romano := Romano + 'M';
+      CODIGOASCCI := CODIGOASCCI - 1000;
+    end;
+    
+    if CODIGOASCCI >= 900 then begin
+      Romano := Romano + 'CM';
+      CODIGOASCCI := CODIGOASCCI - 900;
+    end
+    else if CODIGOASCCI >= 500 then begin
+      Romano := Romano + 'D';
+      CODIGOASCCI := CODIGOASCCI - 500;
+    end;
+    
+    while CODIGOASCCI >= 100 do begin
+      Romano := Romano + 'C';
+      CODIGOASCCI := CODIGOASCCI - 100;
+    end;
+    
+    if CODIGOASCCI >= 90 then begin
+      Romano := Romano + 'XC';
+      CODIGOASCCI := CODIGOASCCI - 90;
+    end
+    else if CODIGOASCCI >= 50 then begin
+      Romano := Romano + 'L';
+      CODIGOASCCI := CODIGOASCCI - 50;
+    end;
+    
+    while CODIGOASCCI >= 10 do begin
+      Romano := Romano + 'X';
+      CODIGOASCCI := CODIGOASCCI - 10;
+    end;
+    
+    if CODIGOASCCI >= 9 then begin
+      Romano := Romano + 'IX';
+      CODIGOASCCI := CODIGOASCCI - 9;
+    end
+    else if CODIGOASCCI >= 5 then begin
+      Romano := Romano + 'V';
+      CODIGOASCCI := CODIGOASCCI - 5;
+    end;
+    
+    while CODIGOASCCI >= 1 do begin
+      Romano := Romano + 'I';
+      CODIGOASCCI := CODIGOASCCI - 1;
+    end;
+    write(Romano, ' ');
+end;
+end; 
+
+
+
 
 begin
 repeat
@@ -107,14 +178,12 @@ clrscr;
   writeln('|(1) Transformar a Binario           |');
   writeln('|(2) Transformar a Hexadecimal       |');
   writeln('|(3) Transformar a Octal             |');
-  writeln('|(3) Transformar a Romano            |');
+  writeln('|(4) Transformar a Romano            |');
   writeln('|------------------------------------|');
-  writeln('|(4) Mostrar Frases Binarias         |');
-  writeln('|(5) Mostrar Frases Hexadecimales    |');
-  writeln('|(6) Mostrar Frases Octales          |');
-  writeln('|(7) Mostrar Frases Romanas          |');
-  writeln('|------------------------------------|');
-  writeln('|(8) SALIR                           |');
+  writeln('|(5) Mostrar Frases Binarias         |');
+  writeln('|(6) Mostrar Frases Hexadecimales    |');
+  writeln('|(7) Mostrar Frases Octales          |');
+  writeln('|(8) Mostrar Frases Romanas          |');
   writeln('|------------------------------------|');
     write('|---> ');readln(opcion);
   
@@ -137,8 +206,8 @@ clrscr;
     Conversion_Octal;
     end;
 
-    4: begin 
-
+    4: begin
+    Conversion_Romano; 
     end;
 
     5: begin 
@@ -150,16 +219,17 @@ clrscr;
      
     end; 
     
-     7: begin 
+    7: begin 
      
     end; 
     
-     8: begin 
+    8: begin 
      
-    end; 
+    end;
+    
+    
     
   end; 
-  
   
 	writeln;
 	Writeln('Quieres volver a convertir otra frase? (Si/No)'); 
