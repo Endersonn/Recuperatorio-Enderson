@@ -112,6 +112,32 @@ begin
   close(Archivo);
 end;
 
+Procedure Mostrar_Frases_Octales;
+var
+  Archivo: text;
+  Linea: string;
+begin
+  assign(Archivo, 'frases_octales.txt');
+  {$I-}
+  reset(Archivo);
+  {$I+}
+  clrscr;
+  if IOResult <> 0 then
+  begin
+    writeln('No se ha creado ningun archivo ni ninguna frase');
+    Exit;
+  end;
+  
+  writeln('Frases octales:');
+  while not eof(Archivo) do
+  begin
+    readln(Archivo, Linea);
+    writeln(Linea);
+  end;
+  
+  close(Archivo);
+end;
+
 
 
 
@@ -171,6 +197,8 @@ end;
 writeln(Archivo);
   close(Archivo);
 end;
+
+
 
 
 Procedure Conversion_Octal_Y_Guardar;
@@ -382,7 +410,7 @@ clrscr;
     end; 
     
     7: begin 
-     
+    Mostrar_Frases_Octales; 
     end; 
     
     8: begin 
