@@ -2,6 +2,7 @@ program RecupetarioEnderson1;
 uses crt;
 var
 opcion:integer;
+opcion2: string;
 
 Procedure  Conversion_Binario;
 var
@@ -36,6 +37,7 @@ end;
 
 begin
 repeat
+clrscr;
   writeln('|------------------------------------|');
   writeln('|       CONVERSION DE FRASES         |');     
   writeln('|------------------------------------|');
@@ -97,6 +99,11 @@ repeat
     end; 
     
   end; 
-
-until opcion = 8; 
+  
+  
+	writeln;
+	Writeln('Quieres volver a convertir otra frase? (Si/No)'); 
+	write('---> '); Readln(opcion2);
+	until (opcion2 = 'No') or (opcion2 = 'NO') or (opcion2 = 'no');	  
+	
 end.
