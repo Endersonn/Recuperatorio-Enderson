@@ -18,7 +18,16 @@ begin
   write('---> '); readln(Frase_A_Convertir);
 
   assign(Archivo, 'frases_binarias.txt');
-  append(Archivo); 
+  
+  // Verificamos si el archivo existe, si no existe lo creamos
+  {$I-}
+  reset(Archivo);
+  {$I+}
+  
+  if IOResult <> 0 then
+    rewrite(Archivo)
+  else
+    append(Archivo);
 
   // Guardamos la frase original en el archivo
   writeln(Archivo,' ');
@@ -49,36 +58,60 @@ end;
 
 
 
-procedure Conversion_Hexadecimal;
+Procedure Conversion_Hexadecimal_Y_Guardar;
 var
-  Frase_A_Convertir:string;
-  Hexadecimal:string;
-  letra:char;
-  i,j:integer;
-  CODIGOASCCI:integer;
- 
-begin 
-clrscr;
-writeln('INGRESA TU FRASE PARA CONVERTIRLA A HEXADECIMAL ');
-write('---> '); readln(Frase_A_Convertir);
+  Frase_A_Convertir, Hexadecimal: string;
+  Letra: char;
+  i, j, CODIGOASCCI: integer;
+  Archivo: text;
 
-  for i := 1 to length(Frase_A_Convertir) do 
+begin 
+  clrscr;
+  writeln('INGRESA TU FRASE PARA CONVERTIRLA A HEXADECIMAL ');
+  write('---> '); readln(Frase_A_Convertir);
+
+  assign(Archivo, 'frases_hexadecimales.txt');
+
+  // Verificamos si el archivo existe, si no existe lo creamos
+  {$I-}
+  reset(Archivo);
+  {$I+}
+  
+  if IOResult <> 0 then
+    rewrite(Archivo)
+  else
+    append(Archivo);
+
+  // Guardamos la frase original en el archivo
+  writeln(Archivo, 'Frase: ', Frase_A_Convertir);
+
+  // Convertimos la frase a hexadecimal y la guardamos en el archivo
+ for i := 1 to length(Frase_A_Convertir) do 
     begin
     letra := Frase_A_Convertir[i];
     CODIGOASCCI := ord(letra);
-    Hexadecimal := '';
+    hexadecimal := '';
+    
     while CODIGOASCCI > 0 do begin
     if (CODIGOASCCI mod 16) < 10 then
     Hexadecimal := chr((CODIGOASCCI mod 16) + 48) + Hexadecimal
     else
     Hexadecimal := chr((CODIGOASCCI mod 16) + 55) + Hexadecimal;
+      
     CODIGOASCCI := CODIGOASCCI div 16;
     end;
+    
     for j := 1 to (2 - length(Hexadecimal)) do
     write('0');
+    
     write(Hexadecimal, ' ');
+
+  // Guardamos la frase en hexadecimal en el archivo
+  write(Archivo,' ', Hexadecimal); 
 end;
+  close(Archivo);
 end;
+
 
 procedure Conversion_Octal;
 var
@@ -213,7 +246,7 @@ clrscr;
     end;
 
     2: begin 
-    Conversion_Hexadecimal
+    Conversion_Hexadecimal_Y_Guardar;
     end;
 
     3: begin 
